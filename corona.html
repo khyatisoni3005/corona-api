@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<style>
+    h1,
+    h3,
+    p,
+    h4 {
+        text-transform: capitalize;
+    }
+
+    h1 {
+        display: inline-block;
+    }
+
+    img {
+        height: 200px;
+        margin-top: 10px;
+
+    }
+
+    .col-4 {
+        box-shadow: 0px 0px 20px 0px rgb(223, 223, 223);
+    }
+</style>
+
+<body>
+    <div class="box">
+        <div class="container">
+            <div class="row" id="ro">
+
+            </div>
+        </div>
+    </div>
+    <script>
+        async function test() {
+            const url = 'https://fakestoreapi.com/products';
+            const options = {
+                method: 'GET',
+            };
+
+            try {
+                const response = await fetch(url, options);
+                const result = await response.json();
+                console.log(result);
+                let show = result.map((p) => {
+                    let box2 = ` 
+                    <div class="col-4"> 
+                    <img src="${p.image}" alt="">
+                    <h1>${p.title}</h1>
+                    <p>${p.description}
+                    </p>
+                    <p>${p.category}</p>
+                    <h5>$${p.price}</h5>
+                    </div>
+                    `
+                    return box2
+                })
+                let row = document.getElementById("ro")
+                row.innerHTML = show.join('')
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        test()
+    </script>
+</body>
+<script src="js/bootstrap.bundle.min.js"></script>
+
+</html>
